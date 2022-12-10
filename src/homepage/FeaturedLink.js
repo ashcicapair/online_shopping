@@ -13,7 +13,7 @@ const FeaturedLink = ({posts, index}) => {
             fontSize:'48px'
         });
 
-    console.log(index)
+    // console.log(index)
     return (
         <>
             <head>

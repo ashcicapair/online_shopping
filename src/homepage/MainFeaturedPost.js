@@ -1,18 +1,29 @@
 import React, { useState,  } from 'react';
 import { Link, } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { Box, Stepper, Paper, Typography, Button, Grid, MobileStepper } from '@mui/material';
+import { Card, Box, Stepper, Paper, Typography, Button, Grid, MobileStepper, styled } from '@mui/material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-// import { Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption, } from 'reactstrap';
 import HP1 from '../images/HP1.jpg';
 import HP2 from '../images/HP2.jpg';
 import HP3 from '../images/HP3.jpg';
 import HP7 from '../images/HP7.jpg';
+import Pagination from './Pagination';
 
 
+const StyledButton = styled(Button, {
+    name: "styledButton",
+})({
+    color:'#fff', 
+    '& .MuiSvgIcon-root':{
+        fontSize:'7rem', 
+    }, 
+    '&:hover':{
+        backgroundColor:'transparent',
+    },
+})
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -44,6 +55,7 @@ const images = [
 function MainFeaturedPost() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(0);
+    const [index, setIndex] = useState(0);
     const maxSteps = images.length;
 
     const handleNext = () => {
@@ -57,13 +69,17 @@ function MainFeaturedPost() {
     const handleStepChange = (step) => {
         setActiveStep(step);
     };
-    console.log('activeStep:',activeStep)
+    // console.log('activeStep:',activeStep)
+
+    const handleChangeIndex = (step) => {
+        setIndex(step);
+    };
 
     return (
         <>
-            <Paper elevation={0} sx={{ width: 'auto', }} >
+            <Paper elevation={0} id="back-to-top-anchor" sx={{position:'relative', pt:'188px', zIndex:997,}} >
                 {/* <Box sx={{ width: 'auto', px: 3, flexGrow: 1}}> */}
-                {/* <Grid > */}
+                {/* <Grid item xs={12}> */}
                     <AutoPlaySwipeableViews
                         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                         index={activeStep}
@@ -73,7 +89,7 @@ function MainFeaturedPost() {
                         {images.map((step, index) => (
                             <Link>
                                 {Math.abs(activeStep - index) <= 2 ? (
-                                    <div  key={step.label} style={{width:'auto', height:'900px', backgroundImage: `url(${step.imgPath})`, backgroundSize: 'cover', }}>
+                                    <Card elevation={0} key={step.label} style={{width: 'auto', height:'900px', backgroundImage: `url(${step.imgPath})`, backgroundSize: 'cover', }}>
                                         {/* <Box
                                                component="img"
                                             // className='carousel-item'
@@ -90,38 +106,43 @@ function MainFeaturedPost() {
                                             src={step.imgPath}
                                             alt={step.label}
                                         />  */}
-                                    </div> 
+                                    </Card> 
                                 ) : null}
                             </Link>
                         ))}
                     </AutoPlaySwipeableViews>
-                    {/* <MobileStepper
+                    {/* <Pagination dots={3} index={index} onChangeIndex={handleChangeIndex} /> */}
+                    <MobileStepper
                         variant="dots"
                         steps={maxSteps}
-                        position="bottom"
                         activeStep={activeStep}
-                        // sx={{ width: '700px', flexGrow: 1 }}
+                        sx={{position:'absolute', top:'25%', bgcolor:'transparent',
+                            '& .MuiMobileStepper-dotActive': {
+                                backgroundColor:'#fff'
+                            },
+                            '& .MuiMobileStepper-dots': {
+                                position:'relative', top:'48%',
+                            },
+                        }}
                         nextButton={
-                            <Button size="large" onClick={handleNext} disabled={activeStep === maxSteps - 1} >
-                                Next
+                            <StyledButton size="large" disableRipple onClick={handleNext} disabled={activeStep === maxSteps - 1} >
                                 {theme.direction === 'rtl' ? 
                                     <KeyboardArrowLeftIcon />
                                     : 
                                     <KeyboardArrowRightIcon />
                                 }
-                            </Button>
+                            </StyledButton>
                         }
                         backButton={
-                            <Button size="large" onClick={handleBack} disabled={activeStep === 0}>
+                            <StyledButton size="large" disableRipple onClick={handleBack} disabled={activeStep === 0}>
                                 {theme.direction === 'rtl' ? (
                                     <KeyboardArrowRightIcon />
                                     ) : (
                                         <KeyboardArrowLeftIcon />
                                         )}
-                                Back
-                            </Button>
+                            </StyledButton>
                         }
-                    /> */}
+                    />
                 {/* </Grid> */}
                 {/* </Box> */}
             </Paper> 
@@ -129,6 +150,7 @@ function MainFeaturedPost() {
         </>
     );
 }
+
 
 // const items = [
 //     {

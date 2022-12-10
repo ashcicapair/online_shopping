@@ -1,11 +1,14 @@
 import React from 'react';
-import Header from '../homepage/Header';
+import HeaderNav from '../homepage/HeaderNav';
 
 
 function NewArrivals() {
+
+
     return (
         <div>
-            <h2>New Arrivals</h2>
+            <HeaderNav sectionName="homeSections"/>
+            <h2 >New Arrivals</h2>
         </div>
     );
 }

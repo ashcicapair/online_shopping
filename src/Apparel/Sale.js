@@ -1,9 +1,12 @@
 import React from 'react';
+import HeaderNav from '../homepage/HeaderNav';
+
 
 function Sale() {
     return (
         <div>
-            <h2>Sale</h2>
+            <HeaderNav sectionName="homeSections"/>
+            <h2 >Sale</h2>
         </div>
     );
 }

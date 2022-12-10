@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, NavLink, useLocation, } from 'react-router-dom';
-import { Container, Grid, } from '@mui/material';
-import Header from './Header';
+import { Container, Grid,  } from '@mui/material';
 import HeaderNav from './HeaderNav';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedLink from './FeaturedLink';
@@ -9,6 +8,7 @@ import FeaturedPost from './FeaturedPost';
 import newarr3 from '../images/newarr3.png';
 import m4 from '../images/m4.jpg';
 import w5 from '../images/w5.jpg';
+
 
 export function Home () {
 
@@ -43,18 +43,12 @@ export function Home () {
         },
     ];
     
-    const sections = [
-        { title: "New Arrivals", url: '/newArrivals' },
-        { title: "Women's", url: '/women-apparel' },
-        { title: "Men's", url: '/men-apparel' },
-        { title: "Sale", url: '/sale' },
-    ];
 
     return (
-        <>
-            <HeaderNav sections={sections}/>
+        <>  
+            <HeaderNav sectionName="homeSections"/>
             <main>
-                <MainFeaturedPost />
+                <MainFeaturedPost/>
                 <Grid container spacing={1} px={3}>
                     {featuredPosts.map((post) => (
                         <FeaturedPost posts={post}/>
