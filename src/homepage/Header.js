@@ -63,8 +63,7 @@ const Header = (props) => {
                         <Grid container alignItems='flex-end' >
                             <Grid item>
                                 <NavLink to="/">
-                                    <img src={logo2}
-                                        style={{height: '100px', margin: '10px 10px 10px 24px', }}/>
+                                    <img src={logo2} style={{height: '100px', margin: '10px 10px 10px 24px', }}/>
                                 </NavLink>
                             </Grid>
                             <Grid item md/>

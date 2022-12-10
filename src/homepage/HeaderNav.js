@@ -9,31 +9,12 @@ import navBarData from '../navBarData.json';
 const HeaderNav = ({sectionName,}) => {
     const navSection = navBarData["sections"][sectionName];
 
-
-    console.log("navSection:",navSection)
+    // console.log("navSection:",navSection)
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [anchorWomen, setAnchorWomen] = useState(null);
-    const [anchorMen, setAnchorMen] = useState(null);
 
-    const handleClick = (e) => {
-        const anchor1 = (e.target.ownerDocument || document).querySelector(
-            "#women-link"
-        ); 
-        const anchor2 = (e.target.ownerDocument || document).querySelector(
-            "#men-link"
-        ); 
-    
-        // console.log('e',e.target)
-        // if (anchorEl !== e.currentTarget) {
-        //     setAnchorEl( e.currentTarget);
-        // } 
-        if (e.currentTarget == anchor1) {
-            setAnchorWomen( e.currentTarget);
-        } 
-        if (e.currentTarget == anchor2) {
-            setAnchorMen( e.currentTarget);
-        }
+    const handleClick = (e, subMenu) => {
+        setAnchorEl({ [subMenu]: e.currentTarget });
     };
 
     let currentlyHovering = false;
@@ -42,9 +23,7 @@ const HeaderNav = ({sectionName,}) => {
     }
 
     const handleClose = () => {
-        // setAnchorEl(null);
-        setAnchorWomen(null);
-        setAnchorMen(null);
+        setAnchorEl(null);
     };
    
     const handleCloseHover = () => {
@@ -78,8 +57,8 @@ const HeaderNav = ({sectionName,}) => {
                                             // aria-controls={anchorEl ? 'basic-menu' : undefined}
                                             aria-haspopup="true"
                                             // aria-expanded={anchorEl ? 'true' : undefined}
-                                            onClick={handleClick}
-                                            onMouseOver={handleClick}
+                                            onClick={(e) => handleClick(e, section.subMenu) }
+                                            onMouseOver={(e) => handleClick(e, section.subMenu) }
                                             onMouseLeave={handleCloseHover}
                                             style={{color:'#faf7f7', textDecoration: 'none', marginRight:"20px"}}
                                         >
@@ -88,9 +67,9 @@ const HeaderNav = ({sectionName,}) => {
                                         <Menu
                                             disableScrollLock 
                                             variant="menu"
-                                            // id="women-menu"
-                                            anchorEl={[section.subMenu] == "womenMenu" ? anchorWomen : anchorMen}
-                                            open={[section.subMenu] == "womenMenu" ? Boolean(anchorWomen) : Boolean(anchorMen)}
+                                            id={section.subMenu}
+                                            anchorEl={ anchorEl && anchorEl[section.subMenu] }
+                                            open={ Boolean(anchorEl && anchorEl[section.subMenu]) }
                                             onClose={handleClose}
                                             MenuListProps={{ 
                                                 onMouseEnter: handleHover,

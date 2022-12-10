@@ -10,7 +10,6 @@ import HP1 from '../images/HP1.jpg';
 import HP2 from '../images/HP2.jpg';
 import HP3 from '../images/HP3.jpg';
 import HP7 from '../images/HP7.jpg';
-import Pagination from './Pagination';
 
 
 const StyledButton = styled(Button, {
