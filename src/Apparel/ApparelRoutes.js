@@ -1,5 +1,5 @@
 import { Routes, Route, Link, } from 'react-router-dom';
-import Apparel from './Apparel';
+import {Apparel} from './Apparel';
 import {WomenApparelLayout, MenApparelLayout, } from './ApparelLayout';
 
 function WomenApparelRoutes() {

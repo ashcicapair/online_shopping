@@ -1,12 +1,25 @@
-import {useParams} from 'react-router-dom';
+import {useParams, NavLink} from 'react-router-dom';
+import { Container, styled, } from '@mui/material';
 
-function Apparel() {
+const StyledContainer = styled(Container, {
+    name: "StyledContainer",
+})({
+    width: '100%', 
+    position:'relative', 
+    paddingTop:'188px', 
+    marginLeft: 0,
+    zIndex:997,
+})
+
+const Apparel = () => {
     const {id} = useParams();
     return (
         <>
-            <h2>Apparel {id}</h2>
+            <StyledContainer>
+                <h2>Apparel {id}</h2>
+            </StyledContainer>
         </>
     );
 }
 
-export default Apparel;
+export  {Apparel, StyledContainer, };

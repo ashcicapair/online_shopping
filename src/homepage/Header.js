@@ -1,4 +1,4 @@
-import React, { useState,  } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, } from 'react-router-dom';
 import { Toolbar, Container, Grid, styled, Typography, InputBase, Slide, useScrollTrigger, 
     } from '@mui/material';
@@ -8,50 +8,70 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import logo2 from '../images/logo2.jpg';
 
 
-const Header = (props) => {
-    const { window } = props;
+const Search = styled("div")({
+    position: "relative",
+    marginLeft: 0,
+    width: "100%",
+  });
 
-    const Search = styled("div")({
-        position: "relative",
-        marginLeft: 0,
-        width: "100%",
-      });
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+    height: "100%",
+    paddingLeft: theme.spacing(1.5),
+    position: "absolute",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // pointerEvents: "none",
+}))
 
-    const SearchIconWrapper = styled("div")(({ theme }) => ({
-        height: "100%",
-        paddingLeft: theme.spacing(1.5),
-        position: "absolute",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        // pointerEvents: "none",
-    }))
-
-    const StyledInputBase = styled(InputBase, {
-        name: "StyledInputBase",
-        })(({ theme }) => ({
-            opacity: "0.6",
-            fontSize: '1rem',
-            "& .MuiInputBase-input": {
-                padding: theme.spacing(2, 0.5, 2, 7),
-                transition: 'width 0.3s',
-                [theme.breakpoints.up("sm")]: {
-                    width: 0,
-                    '&:focus': {
-                        width: "500px",
-                        backgroundColor: "#f2f2f2",
-                    }
+const StyledInputBase = styled(InputBase, {
+    name: "StyledInputBase",
+    })(({ theme, withData }) => ({
+        opacity: "0.6",
+        fontSize: '1rem',
+        "& .MuiInputBase-input": {
+            padding: theme.spacing(2, 0.5, 2, 7),
+            transition: 'width 0.3s',
+            [theme.breakpoints.up("sm")]: {
+                width: withData ? "500px" : 0,
+                backgroundColor: withData ? "#f2f2f2" :'',
+                '&:focus': {
+                    width: "500px",
+                    backgroundColor: "#f2f2f2",
                 }
             }
-        })
-    );
+        }
+    })
+);
+
+const Header = (props) => {
+    const { window, searchQuery, setSearchQuery} = props;
+    // const [searchQuery, setSearchQuery] = useState('');
+    const [searchContent, setSearchContent] = useState(false);
+
+    const handleQuery = (e) => {
+        setSearchQuery(e.target.value);
+    }
 
     const trigger = useScrollTrigger({
         // disableHysteresis: true,
         threshold: 100,
         target: props.window ? window() : undefined
-      });
+    });
  
+    useEffect(() => {
+        setSearchQuery('');
+    }, [])
+    
+    useEffect(() => {
+        if (searchQuery !== '') {
+            setSearchContent(true)
+        } else (
+            setSearchContent(false)
+        );
+    }, [searchQuery])
+
+
     return (    
         <>
             <Slide appear={false} direction="down" in={!trigger}>
@@ -72,7 +92,7 @@ const Header = (props) => {
                                     <SearchIconWrapper>
                                         <SearchIcon fontSize="large" sx={{ color: 'text.secondary', cursor: "pointer" }}/>
                                     </SearchIconWrapper>
-                                    <StyledInputBase />
+                                    <StyledInputBase value={searchQuery} onChange={handleQuery} withData={searchContent}/>
                                 </Search>
 
                                 <NavLink to="/">

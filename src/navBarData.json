@@ -1,13 +1,14 @@
 {
     "sections" : {
         "homeSections" : [
+            { "title": "Home", "url": "/" },
             { "title": "New Arrivals", "url": "/newArrivals" },
             { "title": "Women's", "url": "/women-apparel", "subMenu": "womenMenu" },
             { "title": "Men's", "url": "/men-apparel", "subMenu": "menMenu" },
             { "title": "Sale", "url": "/sale" }
         ],
         "womenSections" : [
-            { "title": "Women's >", "url": "/women-apparel" },
+            { "title": "Women's >", "url": "/women-apparel", "subMenu": "homeMenu" },
             { "title": "Tops", "url": "/women-apparel/top" },
             { "title": "Bottoms", "url": "/women-apparel/bottom" },
             { "title": "Outer", "url": "/women-apparel/outer" },
@@ -15,13 +16,20 @@
             { "title": "Accessories", "url": "/women-apparel/Accessory" }
         ],
         "menSections" : [
-            { "title": "Men's >", "url": "/men-apparel" },
+            { "title": "Men's >", "url": "/men-apparel", "subMenu": "homeMenu" },
             { "title": "Tops", "url": "/men-apparel/top" },
             { "title": "Bottoms", "url": "/men-apparel/bottom" },
             { "title": "Outer", "url": "/men-apparel/outer" }
         ]
     },
     "subMenu" : {
+        "homeMenu" : [
+            { "title": "Home", "url": "/" },
+            { "title": "New Arrivals", "url": "/newArrivals" },
+            { "title": "Women's", "url": "/women-apparel", "subMenu": "womenMenu" },
+            { "title": "Men's", "url": "/men-apparel", "subMenu": "menMenu" },
+            { "title": "Sale", "url": "/sale" }
+        ],
         "womenMenu" : [
             { "title": "Shop All", "url": "/women-apparel" },
             { "title": "Tops", "url": "/women-apparel/top" },

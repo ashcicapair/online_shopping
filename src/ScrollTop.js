@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, } from 'react';
 import './App.css'
 import {Container, Box, Fade, Fab, useScrollTrigger,  } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -25,12 +25,12 @@ const ScrollTop = (props) => {
             });
         }
     };
-    
+
     return (
         <Fade in={trigger} >
             <Box 
                 onClick={handleClick} 
-                sx={{ position: 'fixed', bottom: '30px', right: '40px',}}
+                sx={{ position: 'fixed', bottom: '30px', right: '40px', zIndex: 999}}
             >
                 <Fab 
                     disableRipple
