@@ -86,7 +86,7 @@ function MainFeaturedPost() {
                         enableMouseEvents
                     >
                         {images.map((step, index) => (
-                            <Link>
+                            <Link key={index}>
                                 {Math.abs(activeStep - index) <= 2 ? (
                                     <Card elevation={0} key={step.label} style={{width: 'auto', height:'900px', backgroundImage: `url(${step.imgPath})`, backgroundSize: 'cover', }}>
                                         {/* <Box

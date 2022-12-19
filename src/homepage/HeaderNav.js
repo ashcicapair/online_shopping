@@ -55,7 +55,7 @@ const HeaderNav = ({sectionName,}) => {
                         <Grid container> 
                             {navSection.map((section, index) => (
                                 (Object.keys(section).includes("subMenu")) ? (
-                                    <div >
+                                    <div key={index}>
                                         <Typography variant="subtitle1" pl={3}
                                             id= 'navSection'
                                             aria-controls={anchorEl ? 'basic-menu' : undefined}
@@ -171,6 +171,7 @@ const HeaderNav = ({sectionName,}) => {
                                                 //     </MenuItem>
                                                 // ) : (
                                                     <MenuItem
+                                                        key={index}
                                                         component={NavLink}
                                                         to={section.url}
                                                         onClick={handleClose}
@@ -184,6 +185,7 @@ const HeaderNav = ({sectionName,}) => {
                                     ) : (
                                         <NavLink
                                             id="basic-link"
+                                            key={index}
                                             to={section.url}
                                             style={{color:'#faf7f7', textDecoration: 'none', marginRight:"20px"}}
                                         >

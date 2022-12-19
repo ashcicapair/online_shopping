@@ -119,7 +119,7 @@ const NewArrivals = ({setSearchQuery,}) => {
                     ))}
                 </ImageList>
                 <Box sx={{ display: 'flex', justifyContent:"center", marginBottom: '30px', }}>
-                    <ProductPagination setProducts={(p)=>setProducts(products)}/>
+                <ProductPagination setProducts={setProducts}/>
 {/* 
                     <Pagination
                         showFirstButton 

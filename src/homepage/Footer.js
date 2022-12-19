@@ -22,8 +22,9 @@ const Footer = () => {
             <Container maxWidth="false" disableGutters>
                 <Box component="footer" sx={{color:"#888888", bgcolor: '#1a1a1a',}} align="center">
                     <Typography variant="body2" p={1} >
-                        {sections.map((section) => (
+                        {sections.map((section, index) => (
                             <NavLink 
+                                key={index}
                                 to={section.url} 
                                 style={{color:'#faf7f7', textDecoration: 'none',}}
                             >

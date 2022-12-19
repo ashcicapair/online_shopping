@@ -16,11 +16,11 @@ const FeaturedLink = ({posts, index}) => {
     // console.log(index)
     return (
         <>
-            <head>
+            {/* <head>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
             <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&family=Roboto:wght@100;300;700;900&display=swap" rel="stylesheet"/>
-            </head>
+            </head> */}
             <Grid item xs={12} md={12} >
                 {index === 0 && (
                     <Paper elevation={0} sx={{display:'flex'}}>

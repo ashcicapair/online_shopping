@@ -10,7 +10,7 @@ import m4 from '../images/m4.jpg';
 import w5 from '../images/w5.jpg';
 
 
-export function Home () {
+const Home = () => {
 
     const featuredPosts = [
         {
@@ -50,13 +50,13 @@ export function Home () {
             <main>
                 <MainFeaturedPost/>
                 <Grid container spacing={1} px={3}>
-                    {featuredPosts.map((post) => (
-                        <FeaturedPost posts={post}/>
+                    {featuredPosts.map((post, index) => (
+                        <FeaturedPost key={index} posts={post}/>
                     ))}
                 </Grid>
                 <Grid container spacing={1} px={3} lg={12}>
                     {featuredLinks.map((post, index) => (
-                        <FeaturedLink posts={post} index={index}/>
+                        <FeaturedLink key={index} posts={post} index={index}/>
                     ))} 
                 </Grid>
             </main>

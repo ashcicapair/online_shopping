@@ -17,9 +17,15 @@ const useProductDataApi = () => {
         };
 
         gettingProductData();
-    },[productData]);
+    },[]);
     
+
+    useEffect(() => {
+        getProductData();
+    }, [getProductData]);
+
     return [productData, getProductData];
 }
+
 
 export default useProductDataApi;
