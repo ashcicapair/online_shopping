@@ -10,7 +10,9 @@ const fetchProductData = async() => {
 
 const useProductDataApi = () => {
     const [ productData, setProductData ] = useState([]);
+
     const getProductData = useCallback (() => {
+
         const gettingProductData = async() => {
             const currentData = await fetchProductData();
             setProductData(currentData["goodsList"]);
@@ -18,7 +20,6 @@ const useProductDataApi = () => {
 
         gettingProductData();
     },[]);
-    
 
     useEffect(() => {
         getProductData();

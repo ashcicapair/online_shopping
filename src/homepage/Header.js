@@ -26,15 +26,15 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase, {
     name: "StyledInputBase",
-    })(({ theme, withData }) => ({
+    })(({ theme, key }) => ({
         opacity: "0.6",
         fontSize: '1rem',
         "& .MuiInputBase-input": {
             padding: theme.spacing(2, 0.5, 2, 7),
             transition: 'width 0.3s',
             [theme.breakpoints.up("sm")]: {
-                width: withData ? "500px" : 0,
-                backgroundColor: withData ? "#f2f2f2" :'',
+                width: key ? "500px" : 0,
+                backgroundColor: key ? "#f2f2f2" :'',
                 '&:focus': {
                     width: "500px",
                     backgroundColor: "#f2f2f2",
@@ -92,7 +92,7 @@ const Header = (props) => {
                                     <SearchIconWrapper>
                                         <SearchIcon fontSize="large" sx={{ color: 'text.secondary', cursor: "pointer" }}/>
                                     </SearchIconWrapper>
-                                    <StyledInputBase value={searchQuery} onChange={handleQuery} withData={searchContent}/>
+                                    <StyledInputBase value={searchQuery} onChange={handleQuery} key={searchContent}/>
                                 </Search>
 
                                 <NavLink to="/">

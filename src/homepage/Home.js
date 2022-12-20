@@ -54,7 +54,7 @@ const Home = () => {
                         <FeaturedPost key={index} posts={post}/>
                     ))}
                 </Grid>
-                <Grid container spacing={1} px={3} lg={12}>
+                <Grid container spacing={1} px={3} >
                     {featuredLinks.map((post, index) => (
                         <FeaturedLink key={index} posts={post} index={index}/>
                     ))} 
