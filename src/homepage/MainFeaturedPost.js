@@ -24,32 +24,32 @@ const StyledButton = styled(Button, {
     },
 })
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
     {
         label: 'UQ1',
-        imgPath:
-        HP1,
+        img: HP1,
+        imgPath: "/newArrivals"
     },
     {
         label: 'UQ2',
-        imgPath:
-        HP2,
+        img: HP2,
+        imgPath: "/newArrivals"
     },
     {
         label: 'UQ3',
-        imgPath:
-        HP3,
+        img: HP3,
+        imgPath: "/newArrivals"
     },
     {
         label: 'UQ7',
-        imgPath:
-        HP7,
+        img: HP7,
+        imgPath: "/newArrivals"
     },
 ];  
 
 
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function MainFeaturedPost() {
     const theme = useTheme();
@@ -81,14 +81,14 @@ function MainFeaturedPost() {
                 {/* <Grid item xs={12}> */}
                     <AutoPlaySwipeableViews
                         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                        index={activeStep}
+                        index={1} //activeStep
                         // onChangeIndex={handleStepChange}
                         enableMouseEvents
                     >
                         {images.map((step, index) => (
-                            <Link key={index}>
+                            <Link key={index} to={step.imgPath}>
                                 {Math.abs(activeStep - index) <= 2 ? (
-                                    <Card elevation={0} key={step.label} style={{width: 'auto', height:'900px', backgroundImage: `url(${step.imgPath})`, backgroundSize: 'cover', }}>
+                                    <Card elevation={0} key={step.label} sx={{width: 'auto', height:'900px', backgroundImage: `url(${step.img})`, backgroundSize: 'cover', }}>
                                         {/* <Box
                                                component="img"
                                             // className='carousel-item'
@@ -98,11 +98,11 @@ function MainFeaturedPost() {
                                                 overflow: 'hidden',
                                                 width: 'auto',
                                                 objectFit:'cover',
-                                                backgroundImage: `url(${step.imgPath})`,
+                                                backgroundImage: `url(${step.img})`,
                                                 backgroundPosition: 'center',
                                                 backgroundSize: 'cover',
                                             }}
-                                            src={step.imgPath}
+                                            src={step.img}
                                             alt={step.label}
                                         />  */}
                                     </Card> 

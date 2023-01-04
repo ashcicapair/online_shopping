@@ -9,17 +9,17 @@
         ],
         "womenSections" : [
             { "title": "Women's >", "url": "/women-apparel", "subMenu": "homeMenu" },
-            { "title": "Tops", "url": "/women-apparel/top" },
-            { "title": "Bottoms", "url": "/women-apparel/bottom" },
-            { "title": "Outer", "url": "/women-apparel/outer" },
-            { "title": "Dresses & Jumpsuits", "url": "/women-apparel/dress" },
-            { "title": "Accessories", "url": "/women-apparel/Accessory" }
+            { "title": "Tops", "url": "/women-apparel/tops" },
+            { "title": "Bottoms", "url": "/women-apparel/bottoms" },
+            { "title": "Outer", "url": "/women-apparel/outers" },
+            { "title": "Dresses & Jumpsuits", "url": "/women-apparel/dresses&jumpsuits" },
+            { "title": "Accessories", "url": "/women-apparel/accessories" }
         ],
         "menSections" : [
             { "title": "Men's >", "url": "/men-apparel", "subMenu": "homeMenu" },
-            { "title": "Tops", "url": "/men-apparel/top" },
-            { "title": "Bottoms", "url": "/men-apparel/bottom" },
-            { "title": "Outer", "url": "/men-apparel/outer" }
+            { "title": "Tops", "url": "/men-apparel/tops" },
+            { "title": "Bottoms", "url": "/men-apparel/bottoms" },
+            { "title": "Outer", "url": "/men-apparel/outers" }
         ]
     },
     "subMenu" : {
@@ -32,17 +32,17 @@
         ],
         "womenMenu" : [
             { "title": "Shop All", "url": "/women-apparel" },
-            { "title": "Tops", "url": "/women-apparel/top" },
-            { "title": "Bottoms", "url": "/women-apparel/bottom" },
-            { "title": "Outer", "url": "/women-apparel/outer" },
-            { "title": "Dresses & Jumpsuits", "url": "/women-apparel/dress" },
-            { "title": "Accessories", "url": "/women-apparel/Accessory" }
+            { "title": "Tops", "url": "/women-apparel/tops" },
+            { "title": "Bottoms", "url": "/women-apparel/bottoms" },
+            { "title": "Outer", "url": "/women-apparel/outers" },
+            { "title": "Dresses & Jumpsuits", "url": "/women-apparel/dresses&jumpsuits" },
+            { "title": "Accessories", "url": "/women-apparel/accessories" }
         ],
         "menMenu" : [
             { "title": "Shop All", "url": "/men-apparel" },
-            { "title": "Tops", "url": "/men-apparel/top" },
-            { "title": "Bottoms", "url": "/men-apparel/bottom" },
-            { "title": "Outer", "url": "/men-apparel/outer" }
+            { "title": "Tops", "url": "/men-apparel/tops" },
+            { "title": "Bottoms", "url": "/men-apparel/bottoms" },
+            { "title": "Outer", "url": "/men-apparel/outers" }
         ]
     }
 }

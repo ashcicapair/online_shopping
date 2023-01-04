@@ -32,7 +32,7 @@ const FeaturedLink = ({posts, index}) => {
                         />
                         <StyledTypography alignSelf='center' >
                             <NavLink 
-                                to={'/#'} 
+                                to={'/newArrivals'} 
                                 style={{color:'#1a1a1a', textDecoration: 'none', }}
                             >
                                 {posts.description}
@@ -44,7 +44,7 @@ const FeaturedLink = ({posts, index}) => {
                     <Paper elevation={0} sx={{display:'flex'}}>
                         <StyledTypography alignSelf='center'>
                             <NavLink 
-                                to={'/#'} 
+                                to={'/newArrivals'} 
                                 style={{color:'#1a1a1a', textDecoration: 'none',}}
                             >
                                 {posts.description}

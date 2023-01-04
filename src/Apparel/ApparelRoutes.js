@@ -4,13 +4,12 @@ import {WomenApparelLayout, MenApparelLayout, } from './ApparelLayout';
 
 function WomenApparelRoutes() {
 
-
     return (
         <>
             <Routes>
                 <Route element={<WomenApparelLayout/>}>
-                    <Route index element={<Apparel/>}/>
-                    <Route path=":id" element={<Apparel/>}/>
+                    <Route index element={<Apparel identity={"women"}/>}/>
+                    <Route path=":id" element={<Apparel identity={"women"}/>}/>
                 </Route>
             </Routes>
         </>
@@ -24,8 +23,8 @@ function MenApparelRoutes() {
         <>
             <Routes>
                 <Route element={<MenApparelLayout/>}>   
-                    <Route index element={<Apparel/>}/>
-                    <Route path=":id" element={<Apparel/>}/>
+                    <Route index element={<Apparel identity={"men"}/>}/>
+                    <Route path=":id" element={<Apparel identity={"men"}/>}/>
                 </Route>
             </Routes>
         </>

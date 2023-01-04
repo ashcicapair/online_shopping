@@ -9,7 +9,7 @@ const FeaturedPost = ({posts}) => {
     return (
         <>
             <Grid item xs={12} md={4} >
-                <CardActionArea component="a" href="#">
+                <CardActionArea component="a" href="/newArrivals">
                     <Card square elevation={2}>
                         <CardContent sx={{ flex: 1, width:'auto', height:'120px', bgcolor:'#a89e97', border:'5px double #fff'}}>
                             <Typography component="h5" variant="h5" color="#faf7f7" sx={{lineHeight:'120px'}}>
@@ -20,7 +20,7 @@ const FeaturedPost = ({posts}) => {
                 </CardActionArea>
             </Grid>
             <Grid item xs={12} md={4}>
-                <CardActionArea component="a" href="#">
+                <CardActionArea component="a" href="/newArrivals">
                     <Card square elevation={0} sx={{ height:'170px',}}>
                         <Box
                             component="img"

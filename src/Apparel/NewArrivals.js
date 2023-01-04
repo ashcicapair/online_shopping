@@ -55,15 +55,15 @@ const NewArrivals = ({setSearchQuery,}) => {
     const [ products, setProducts ] = useState([]);
     // console.log("products:",products)
 
-    useEffect (() => {
-        setSearchQuery('');
-    },[])
+    // useEffect (() => {
+    //     setSearchQuery('');
+    // },[])
 
     return (
         <>
             {/* <StyledContainer maxWidth="false" disableGutters> */}
                 <HeaderNav sectionName="homeSections"/>
-                <Apparel/>
+                <Apparel />
         
             {/* </StyledContainer> */}
         </>
