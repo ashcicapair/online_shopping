@@ -60,32 +60,19 @@ const ProductPage = () => {
         "size": "",
         "qty": 1,
     });
+    const [alarmContent, setAlarmContent] = useState('');
     const [open, setOpen] = useState(false);
     const [tabValue, setTabValue] = useState(1);
     const location = useLocation();
     const query = new URLSearchParams(location.search);
-    const goodsId = query.get('goodsId');
+    const goodsId = parseInt(query.get('goodsId'));
     const {user, token} = useAuth();
     const navigate = useNavigate();
-    // console.log("cart:",cart)
+    // console.log("goodsId:",goodsId)
 
-    useEffect (() => {
-        const gettingProductInfo = async() => {
-            const itemInfo = await axios.get(`http://127.0.0.1:3001/dev/api/v1/goods/${goodsId}`)
-            .then(response => response.data)
-            .catch(error => console.log(error))
-
-            setProductInfo(itemInfo);
-            // console.log("productInfo:",productInfo);
-        }
-
-        gettingProductInfo();
-        
-    }, [])
 
     const handleCartChange = (e) => {
         const {name, value,} = e.target;
-
         setCart({
             ...cart,
             [name]: value,
@@ -130,9 +117,23 @@ const ProductPage = () => {
                 }
             }
         )
-        .then(response => setOpen(true))
-        .catch(error => console.log("error:",error.response.data.message))
-
+        .then(response => response)
+        .catch(error => error.response)
+        
+        if (addGoodsToCart.status === 200) {
+            setAlarmContent("成功加入購物車");
+            setOpen(true);
+        } else if (addGoodsToCart.status === 400 && addGoodsToCart.data.message === "The goods is already in cart.") {
+            setAlarmContent("購物車已有商品");
+            setOpen(true);
+        } else if (addGoodsToCart.status === 401) {
+            setAlarmContent("請重新登入");
+            setOpen(true);
+        } else {
+            setAlarmContent("系統錯誤");
+            setOpen(true);
+        };
+       
         // console.log('addGoodsToCart:', addGoodsToCart);
     };
 
@@ -152,20 +153,42 @@ const ProductPage = () => {
                 }
             }
         )
-        .then(response => response && 
+        .then(response => response)
+        .catch(error => error.response)
+
+
+        if (addGoodsToCart.status === 200) {
             setTimeout(() => 
                 navigate("/account/cart")
-            , 500))
-        .catch(error => console.log("error:",error.response.data.message))
-        
-        // if (addGoodsToCart !== '') {
-        //     setTimeout(() => 
-        //     navigate("/account/cart")
-        //     , 500);
-        // };
-        // console.log('addGoodsToCart:', addGoodsToCart);
+            , 500)
+        } else if (addGoodsToCart.status === 400) {
+            setTimeout(() => 
+                navigate("/account/cart")
+            , 500)
+        } else if (addGoodsToCart.status === 401) {
+            setAlarmContent("請重新登入");
+            setOpen(true);
+            setTimeout(() => 
+                navigate("/signin")
+            , 500)
+        } else {
+            setAlarmContent("系統錯誤");
+            setOpen(true);
+        };
     };
 
+    useEffect (() => {
+        const gettingProductInfo = async() => {
+            const itemInfo = await axios.get(`http://127.0.0.1:3001/dev/api/v1/goods/${goodsId}`)
+            .then(response => response.data)
+            .catch(error => console.log("error:",error))
+
+            setProductInfo(itemInfo);
+            // console.log("itemInfo:",itemInfo);
+        };
+
+        gettingProductInfo();
+    }, [])
 
     return (
         <>
@@ -213,7 +236,7 @@ const ProductPage = () => {
 
                     <Grid item xs={12} xl={5} my={10} mx={3}>  
                     {/* onSubmit={cart.size ? proceedToCheckOut : setOpen} */}
-                        <Box width={650} component="form"  sx={{display:'flex', flexDirection:'column', position:{ xl: 'fixed',}}}>
+                        <Box width={650} sx={{display:'flex', flexDirection:'column', position:{ xl: 'fixed',}}}>
                             <Stack direction="row" justifyContent={"space-between"}>
                                 <Typography variant="h5" sx={{color:'#1a1a1a',}}>
                                     {productInfo.title}
@@ -306,25 +329,23 @@ const ProductPage = () => {
                             <FormControl sx={{ mt: 5, ml:0, }} >
                                 <Grid container spacing={2}>
                                     <Grid item xs={6} >
-                                        {/* <NavLink to={cart.size ? "/" : ""} style={{textDecoration:'none', color:'inherit'}}> */}
-                                            <ButtonBase 
-                                                variant="outlined"
-                                                // type="submit"  
-                                                onClick={user ? (cart.size ? proceedToCheckOut : setOpen) : setOpen}
-                                                disableRipple
-                                                sx={{
-                                                    border:'1px solid #1a1a1a', 
-                                                    height: 50, 
-                                                    width: "100%",
-                                                    "&:hover": {
-                                                        border: 'none',
-                                                        bgcolor: ' rgb(156, 143, 131, 0.5)'
-                                                    }
-                                                }}
-                                            >
-                                                {cart.size ? "CHECKOUT" : "CHOOSE SIZE"}
-                                            </ButtonBase>
-                                        {/* </NavLink> */}
+                                        <ButtonBase 
+                                            variant="outlined"
+                                            // type="submit"  
+                                            disableRipple
+                                            onClick={user ? (cart.size ? proceedToCheckOut : setOpen) : setOpen}
+                                            sx={{
+                                                border:'1px solid #1a1a1a', 
+                                                height: 50, 
+                                                width: "100%",
+                                                "&:hover": {
+                                                    border: 'none',
+                                                    bgcolor: '#9c8f83'
+                                                }
+                                            }}
+                                        >
+                                            {cart.size ? "CHECKOUT" : "CHOOSE SIZE"}
+                                        </ButtonBase>
                                     </Grid>    
                                     <Grid item xs={6}> 
                                         <ButtonBase 
@@ -377,11 +398,11 @@ const ProductPage = () => {
                     </Grid>
                 </Grid>
                 <Alarm open={open} onClose={handleClose}>
-                    {
-                        user ?
-                            (cart.size ? "商品加入購物車" : "請選擇尺寸")
-                        :
-                        <Navigate to='/signin/'/>
+                    {alarmContent || (user ?
+                                        (cart.size ? "商品加入購物車" : "請選擇尺寸")
+                                    :
+                                        <Navigate to='/signin/'/>
+                                    )
                     }
                 </Alarm>
             </StyledContainer>

@@ -3,12 +3,10 @@ import { NavLink, useLocation, useSearchParams} from 'react-router-dom';
 import { Pagination, PaginationItem, } from '@mui/material';
 import useProductDataApi from './useProductDataApi';
 import axios from 'axios';
-import apiServices from '../apiServices.json';
 
 
 const pageSize = 5;
 const ProductPagination = ({setProducts, identity, apparelType,}) => {
-    // const api = apiServices["goods"]["identity"][identity];
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const pageNum = parseInt(query.get('page') || '1', 10);
