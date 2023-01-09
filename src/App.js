@@ -15,22 +15,41 @@ import Checkout from './account/Checkout';
 import Profile from './account/Profile';
 import NotFound from './NotFound';
 import ScrollTop from './ScrollTop';
+import Alarm from './Alarm';
 import { useAuth } from './account/useAuth'; 
-
+import jwt_decode from "jwt-decode";
+import moment from "moment";
 
 function App() {
     const [searchQuery, setSearchQuery] = useState('');
+    const [open, setOpen] = useState(false);
     const location = useLocation();
-    const { user } = useAuth();
+    const { user, token, logout } = useAuth();
     const protectPage = ["account/profile", "account/cart"];
     const navigate = useNavigate();
-    // console.log(location);
-    
+
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     useEffect (() => {
         if (protectPage.includes(location.pathname.replace("/", "").toLowerCase())) {
             if (!user) {
                 navigate("/");
             }
+        };
+        
+        if (user) {
+            let timeOfExp = jwt_decode(token);
+            let timeToNow = Date.now() - timeOfExp.exp * 1000;
+            if (timeToNow > 3600000) {
+                logout();
+                setOpen(true);
+                navigate(-2);
+            };
+            // let a = moment(decoded.exp * 1000).toNow();  
+            console.log('timeOfExp:',timeOfExp);
         };
     }, []);
 
@@ -52,12 +71,15 @@ function App() {
 
                     <Route path="/signin/*" element={<SignInSignUp/>}/>
                     <Route path="/account/profile/*" element={<Profile/>}/>
-                    <Route path="/account/cart/*" element={<Checkout/>}/>
+                    <Route path="/account/cart" element={<Checkout/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
              
                 <ScrollTop/>
                 <Footer/>
+                <Alarm open={open} onClose={handleClose}>
+                    請重新登入
+                </Alarm>
             </Container>
         </>
     )
