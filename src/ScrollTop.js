@@ -20,7 +20,6 @@ const ScrollTop = (props) => {
 
         if (anchor) {
             anchor.scrollIntoView({
-                behavior: "smooth",
                 block: "start",
             });
         }
@@ -37,7 +36,6 @@ const ScrollTop = (props) => {
                     size='large' 
                     aria-label="scroll-back-to-top" 
                     sx={{ 
-                        // boxShadow: 0,
                         '&.MuiFab-root':{
                             bgcolor:'#d43f3f', 
                         }

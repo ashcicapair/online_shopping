@@ -1,6 +1,6 @@
-import React, {useState, useEffect, } from 'react';
+import React, {useState } from 'react';
 import {useParams, NavLink} from 'react-router-dom';
-import { Container, Box, styled, ImageList, ImageListItem, ImageListItemBar, Typography, Grid, imageListItemClasses, } from '@mui/material';
+import { Container, Box, styled, ImageListItem, Typography, imageListItemClasses } from '@mui/material';
 import ProductPagination from './ProductPagination';
 
 const StyledContainer = styled(Container, {
@@ -40,7 +40,6 @@ const Apparel = ({identity}) => {
                         }
                     }}
                 >
-                {/* <ImageList variant="quilted" align="center" cols={4} gap={40} width="inherit" sx={{ height: 'auto', mx: 10, margin: '80px 68px 40px',  overflow: 'hidden', }} > */}
                     {products.map((item, index) => (
                         <div>
                             <ImageListItem  sx={{p: '0 0 30px',}} >
@@ -66,7 +65,6 @@ const Apparel = ({identity}) => {
                             </ImageListItem>
                         </div>
                     ))}
-                {/* </ImageList> */}
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent:"center", marginBottom: '30px', }}>
                     <ProductPagination setProducts={setProducts} identity={identity} apparelType={apparelType}/>

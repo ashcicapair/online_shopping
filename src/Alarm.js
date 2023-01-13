@@ -1,12 +1,15 @@
 import React from 'react';
 import { 
-    ButtonBase, Dialog, DialogTitle, DialogContent, DialogActions, 
+    ButtonBase, Dialog, DialogContent, DialogActions, 
 } from '@mui/material';
 
 
-const Alarm = ({open, onClose, children}) => {
+const Alarm = ({open, onClose, children, needRefresh}) => {
     const handleClose = () => {
         onClose();
+        if (needRefresh) {
+            window.location.reload();
+        }
     };
 
     return (
@@ -24,11 +27,6 @@ const Alarm = ({open, onClose, children}) => {
                     border:'1px solid #1a1a1a', 
                     height: 39, 
                     width: "100%",
-                    // "&:hover": {
-                    //     color: '#faf7f7',
-                    //     border: 'none',
-                    //     bgcolor: '#1a1a1a'
-                    // }
                 }}
             >
                     確定

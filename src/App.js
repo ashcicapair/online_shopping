@@ -1,63 +1,81 @@
 import React, { useState, useEffect, }from 'react';
 import './App.css'
-import { Routes, Route, NavLink, useLocation, Navigate, useNavigate} from 'react-router-dom';
-import {Container, Grid, 
-    } from '@mui/material';
-import {WomenApparelRoutes, MenApparelRoutes, } from './Apparel/ApparelRoutes';
+import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
+import {Container } from '@mui/material';
+import {WomenApparelRoutes, MenApparelRoutes, } from './apparel/ApparelRoutes';
 import Home from './homepage/Home';
 import Header from './homepage/Header';
 import Footer from './homepage/Footer';
-import NewArrivals from './Apparel/NewArrivals';
-import ProductPage from './Apparel/ProductPage';
-import Sale from './Apparel/Sale';
+import NewArrivals from './apparel/NewArrivals';
+import ProductPage from './apparel/ProductPage';
+import Sale from './apparel/Sale';
 import SignInSignUp from './account/SignInSignUp';
-import Checkout from './account/Checkout';
-import Profile from './account/Profile';
+import Checkout from './ShoppingCart/Checkout';
 import NotFound from './NotFound';
 import ScrollTop from './ScrollTop';
+import Alarm from './Alarm';
 import { useAuth } from './account/useAuth'; 
+import jwt_decode from "jwt-decode";
+import moment from "moment";
+// import useShoppingCart from './ShoppingCart/useShoppingCart';
 
 
 function App() {
+    // const [cartItem, getCartByUserId] = useShoppingCart();
     const [searchQuery, setSearchQuery] = useState('');
+    const [open, setOpen] = useState(false);
     const location = useLocation();
-    const { user } = useAuth();
-    const protectPage = ["account/profile", "account/cart"];
+    const { user, token, logout } = useAuth();
     const navigate = useNavigate();
-    // console.log(location);
-    
+    const protectPage = ["account/cart"];
+
+    window.scrollTo({top: 0});
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     useEffect (() => {
         if (protectPage.includes(location.pathname.replace("/", "").toLowerCase())) {
             if (!user) {
                 navigate("/");
             }
         };
+        
+        if (user) {
+            // getCartByUserId();
+            let timeOfExp = jwt_decode(token);
+            let now = moment().format("X"); 
+            if (now > timeOfExp.exp) {
+                logout();
+                setOpen(true);
+                navigate(-2);
+            } 
+        };
     }, []);
-
-    window.scrollTo({top: 0});
-
+    
     return (
         <>
-            {/* <CssBaseline/> */}
             <Container id="back-to-top-anchor" maxWidth="false" disableGutters >
                 <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-                {/* <h2> {location.state} </h2> */}
                 <Routes >
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/newArrivals" element={<NewArrivals setSearchQuery={setSearchQuery}/>}/>
+                    <Route path="/newArrivals" element={<NewArrivals/>}/>
                     <Route path="/women-apparel/*" element={<WomenApparelRoutes/>}/>
                     <Route path="/shop/*" element={<ProductPage/>}/>
                     <Route path="/men-apparel/*" element={<MenApparelRoutes/>}/>
                     <Route path="/sale" element={<Sale/>}/>
 
                     <Route path="/signin/*" element={<SignInSignUp/>}/>
-                    <Route path="/account/profile/*" element={<Profile/>}/>
-                    <Route path="/account/cart/*" element={<Checkout/>}/>
+                    <Route path="/account/cart" element={<Checkout/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
              
                 <ScrollTop/>
                 <Footer/>
+                <Alarm open={open} onClose={handleClose}>
+                    系統已自動登出，請重新登入
+                </Alarm>
             </Container>
         </>
     )

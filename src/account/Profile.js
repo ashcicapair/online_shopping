@@ -1,15 +1,7 @@
-import React, {useState, useEffect, } from 'react';
-import {useParams, NavLink, useNavigate} from 'react-router-dom';
-import { 
-    Container, Box, TextField,Typography, ButtonBase, Grid, styled, 
-    FormControl, FormLabel, FormGroup, FormControlLabel, InputBase, 
-    IconButton, Divider, Tabs, Tab, InputAdornment, Dialog, DialogTitle, 
-    DialogContent, DialogActions, 
-} from '@mui/material';
-import axios from 'axios';
-import jwt_decode from "jwt-decode";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
 import HeaderNav from '../homepage/HeaderNav';
-import  {StyledContainer} from '../Apparel/Apparel';
+import  {StyledContainer} from '../apparel/Apparel';
 
 
 const Profile = () => {

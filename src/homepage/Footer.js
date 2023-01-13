@@ -34,7 +34,7 @@ const Footer = () => {
                         ))} 
                     </Typography>
                     <Typography  variant="body2" pb={0.5}>
-                        copyright © 2022 Studios Co., Ltd. All Rights Reserved.
+                        copyright © 2023 Studios Co., Ltd. All Rights Reserved.
                     </Typography>
                 </Box>
             </Container>

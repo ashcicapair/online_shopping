@@ -1,14 +1,11 @@
-import React, {useState, useEffect, useContext, useMemo} from 'react';
-import {useParams, NavLink, useNavigate} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 import { 
     Container, Box, TextField,Typography, ButtonBase, Grid, styled, 
-    FormControl, FormLabel, FormGroup, FormControlLabel, InputBase, 
-    IconButton, Divider, Tabs, Tab, InputAdornment, Dialog, DialogTitle, 
-    DialogContent, DialogActions, 
+    IconButton, Divider, Tabs, Tab, InputAdornment, 
 } from '@mui/material';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import  {StyledContainer} from '../Apparel/Apparel';
+import  {StyledContainer} from '../apparel/Apparel';
 import { useAuth } from './useAuth'; 
 import Alarm from '../Alarm';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -56,8 +53,10 @@ const SignInSignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [inputError, setInputError] = useState({});
     const [instantErrors, setInstantErrors] = useState({});
-    const [open, setOpen] = useState(false);
-    const navigate = useNavigate(); 
+    const [open, setOpen] = useState({
+        signIn: false,
+        signUp: false
+    });
     const { login } = useAuth();
 
     const handleTabChange = (event, newValue) => {
@@ -80,19 +79,20 @@ const SignInSignUp = () => {
         setInputValues(initialValues);
     };
 
-    const handleClose = () => setOpen((open) => !open);
-    // console.log("inputValues:",inputValues);
+    const handleClose = () => setOpen({
+        signIn: false,
+        signUp: false
+    });
 
     const validation = () => {
         let temp = {};
         temp.name = inputValues.name ? "" : "此為必填欄位";
         temp.emptyAge = inputValues.age ? "" : "此為必填欄位";
         temp.age = (/^\d{1,2}$/).test(inputValues.age) ? "" : inputValues.age !== '' && "請輸入歲數";
-        // temp.email = (/^\w+@{1}[A-Za-z0-9]+\.com$/).test(inputValues.email) ? "" : inputValues.email !== '' && "格式錯誤!";
         temp.accountID = inputValues.accountID ? "" : "此為必填欄位";
         temp.accountExisted = inputValues.accountExisted === 204 ? "" : (inputValues.accountExisted !== '' && inputValues.accountExisted !== undefined) && "此帳號已存在";
         temp.emptyPassword = inputValues.password ? "" : "此為必填欄位";
-        // temp.password = (/[A-Za-z0-9]{6,15}/).test(inputValues.password) ? "" : inputValues.password !== '' && "格式錯誤!";
+        temp.password = (/[A-Za-z0-9]{6,15}/).test(inputValues.password) ? "" : inputValues.password !== '' && "格式錯誤!";
         temp.emptyMatchPW = inputValues.matchPassword ? "" : "此為必填欄位";
         temp.matchPassword = inputValues.matchPassword === inputValues.password ? "" : "兩次密碼未一致，請重新輸入!";
         
@@ -103,7 +103,7 @@ const SignInSignUp = () => {
         setInstantErrors({
             ...temp
         });
-        console.log("temp:",temp);
+
         return Object.values(temp).every(x => x === "");
     };
     
@@ -123,18 +123,18 @@ const SignInSignUp = () => {
         )
         .then(response => response.data)
         .catch(error => setOpen({
+            ...open,
             signIn: true
         }) )
 
         let decoded = jwt_decode(loggingin.token);
         login(decoded.name, loggingin.token);
-        // console.log('decoded:', loggingin.token);
+        console.log('decoded:', decoded);
     };
 
     const handleSignUpSubmit = async(e) => {
         e.preventDefault();
         if (validation()) {
-            // gettingAccountID();
             const signUpInfo = await axios.post(`http://127.0.0.1:3001/dev/api/v1/users`,
                 {
                     "account": inputValues.accountID,
@@ -143,11 +143,19 @@ const SignInSignUp = () => {
                     "age": inputValues.age
                 }
             )
-            .then(response =>  setOpen({signUp: true}))
+            .then(response =>  setOpen({
+                ...open,
+                signUp: true
+            }))
             .catch(error => console.log('createAccount:',error.response.data.message))
-            setTimeout(() => 
-                navigate("/account/profile")
-            , 1500);
+            
+            setTimeout(() => {
+                setTabValue(1);
+                resetForm();
+                setShowPassword(false);
+                setInstantErrors({});
+            }
+            , 1000);
         };
     };
 
@@ -174,7 +182,7 @@ const SignInSignUp = () => {
             <StyledContainer maxWidth="false" disableGutters sx={{pt:"124px"}}>
                 <Divider/>
                 <Container component="main" maxWidth="xs">
-                    <Box mt={18} mb={39} sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
+                    <Box mt={18} mb='85%' sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                         <Tabs 
                             value={tabValue} 
                             textColor='inherit'
@@ -201,7 +209,6 @@ const SignInSignUp = () => {
                                             name="accountID"
                                             value={inputValues.accountID}
                                             fullWidth
-                                            // autoFocus
                                             placeholder='Account ID 會員帳號'
                                             onChange={handleInputChange}
                                         />
@@ -367,7 +374,8 @@ const SignInSignUp = () => {
                     </Box>
                 </Container>
                 <Alarm open={open.signIn || open.signUp} onClose={handleClose}>
-                    {open.signIn ? 
+                    {open.signIn 
+                    ? 
                         (!inputValues.accountID && !inputValues.password ? "請輸入會員帳號及密碼" 
                         : (
                             !inputValues.accountID ? "請輸入會員帳號" 
@@ -376,12 +384,13 @@ const SignInSignUp = () => {
                                 : "帳號密碼錯誤 !" 
                             )
                         ))
-                    : (open.signUp && "成功加入會員，請重新登入")
+                    : 
+                        (open.signUp && "成功加入會員，請重新登入")
                     }
                 </Alarm>
             </StyledContainer>
         </>
     )
-}
+};
 
 export default SignInSignUp;

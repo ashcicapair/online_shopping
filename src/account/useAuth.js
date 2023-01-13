@@ -13,7 +13,7 @@ export const AuthProvider = ({children}) => {
         setUser(username);
         setToken(token);
         setTimeout(() => 
-            navigate("/account/profile")
+            navigate(-1)
         , 800);
     };
 

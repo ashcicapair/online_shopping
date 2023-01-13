@@ -1,23 +1,20 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import { NavLink, useLocation, useSearchParams} from 'react-router-dom';
 import { Pagination, PaginationItem, } from '@mui/material';
-import useProductDataApi from './useProductDataApi';
 import axios from 'axios';
 
 
-const pageSize = 5;
+const pageSize = 12;
 const ProductPagination = ({setProducts, identity, apparelType,}) => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const pageNum = parseInt(query.get('page') || '1', 10);
-    // const [productData, getProductData] = useProductDataApi();
     const [ pagination, setPagination ] = useState({
         count: 0,
         from: (pageNum - 1) * pageSize,
         to: (pageNum - 1) * pageSize + pageSize,
     });
-    // console.log("pageNum:", pageNum)
-    // console.log("pagination:", pagination)
+
 
     useEffect(() => {
         const gettingProductData = async() => {
@@ -37,7 +34,6 @@ const ProductPagination = ({setProducts, identity, apparelType,}) => {
             setPagination({
                 ...pagination,
                 count: currentData.goodsList.length,
-                // count: productData.length
             });
             setProducts(result);
         };
@@ -65,8 +61,6 @@ const ProductPagination = ({setProducts, identity, apparelType,}) => {
                     disableRipple
                     component={NavLink}
                     to={`/newArrivals${item.page === 1 ? '' : `?page=${item.page}`}`}
-                    // onChange={e=> setSearchParams({page: e.target.value})}
-                    // onChange={handlePageChange}
                     {...item}
                 />
             )}

@@ -1,9 +1,8 @@
 import React, {useState, useEffect, } from 'react';
 import { Navigate, useLocation, useNavigate} from 'react-router-dom';
 import { 
-    Card, Box, Stepper, Paper, Typography, Button, Grid, MobileStepper, styled , Stack, 
-    FormControl, FormLabel, FormGroup, FormControlLabel, InputBase, Radio, RadioGroup, 
-    IconButton, ButtonBase, Divider, Tabs, Tab 
+    Box, Typography, Grid, Stack, FormControl, FormControlLabel, InputBase, 
+    Radio, RadioGroup, IconButton, ButtonBase, Divider, Tabs, Tab 
 } from '@mui/material';
 import HeaderNav from '../homepage/HeaderNav';
 import Alarm from '../Alarm';
@@ -28,7 +27,6 @@ const TabPanel = ({children, value, index}) => {
             hidden={value !== index}
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
-            // {...other}
         >
             {value === index && (
                 <Box sx={{ p: 3 }}>
@@ -66,9 +64,8 @@ const ProductPage = () => {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const goodsId = parseInt(query.get('goodsId'));
-    const {user, token} = useAuth();
+    const {user, token, logout} = useAuth();
     const navigate = useNavigate();
-    // console.log("goodsId:",goodsId)
 
 
     const handleCartChange = (e) => {
@@ -120,21 +117,32 @@ const ProductPage = () => {
         .then(response => response)
         .catch(error => error.response)
         
-        if (addGoodsToCart.status === 200) {
-            setAlarmContent("成功加入購物車");
-            setOpen(true);
-        } else if (addGoodsToCart.status === 400 && addGoodsToCart.data.message === "The goods is already in cart.") {
-            setAlarmContent("購物車已有商品");
-            setOpen(true);
-        } else if (addGoodsToCart.status === 401) {
+        if (addGoodsToCart.status) {
+            if (addGoodsToCart.status === 200) {
+                setAlarmContent("成功加入購物車");
+                setOpen(true);
+            } else if (addGoodsToCart.status === 400 && addGoodsToCart.data.message === "The goods is already in cart.") {
+                setAlarmContent("購物車已有商品");
+                setOpen(true);
+            } else if (addGoodsToCart.status === 401) {
+                logout();
+                setAlarmContent("請重新登入");
+                setOpen(true);
+                setTimeout(() => 
+                    navigate("/signin")
+                , 1500);
+            } else {
+                setAlarmContent("系統錯誤");
+                setOpen(true);
+            };
+        } else {
+            logout();
             setAlarmContent("請重新登入");
             setOpen(true);
-        } else {
-            setAlarmContent("系統錯誤");
-            setOpen(true);
+            setTimeout(() => 
+                navigate("/signin")
+            , 1500);
         };
-       
-        // console.log('addGoodsToCart:', addGoodsToCart);
     };
 
     const proceedToCheckOut = async(e) => {
@@ -156,24 +164,33 @@ const ProductPage = () => {
         .then(response => response)
         .catch(error => error.response)
 
-
-        if (addGoodsToCart.status === 200) {
-            setTimeout(() => 
-                navigate("/account/cart")
-            , 500)
-        } else if (addGoodsToCart.status === 400) {
-            setTimeout(() => 
-                navigate("/account/cart")
-            , 500)
-        } else if (addGoodsToCart.status === 401) {
+        if (addGoodsToCart.status) {
+            if (addGoodsToCart.status === 200) {
+                setTimeout(() => 
+                    navigate("/account/cart")
+                , 500)
+            } else if (addGoodsToCart.status === 400) {
+                setTimeout(() => 
+                    navigate("/account/cart")
+                , 500)
+            } else if (addGoodsToCart.status === 401) {
+                logout();
+                setAlarmContent("請重新登入");
+                setOpen(true);
+                setTimeout(() => 
+                    navigate("/signin")
+                , 500)
+            } else {
+                setAlarmContent("系統錯誤");
+                setOpen(true);
+            };
+        } else {
+            logout();
             setAlarmContent("請重新登入");
             setOpen(true);
             setTimeout(() => 
                 navigate("/signin")
-            , 500)
-        } else {
-            setAlarmContent("系統錯誤");
-            setOpen(true);
+            , 1500);
         };
     };
 
@@ -184,7 +201,6 @@ const ProductPage = () => {
             .catch(error => console.log("error:",error))
 
             setProductInfo(itemInfo);
-            // console.log("itemInfo:",itemInfo);
         };
 
         gettingProductInfo();
@@ -235,7 +251,6 @@ const ProductPage = () => {
                     </Grid>
 
                     <Grid item xs={12} xl={5} my={10} mx={3}>  
-                    {/* onSubmit={cart.size ? proceedToCheckOut : setOpen} */}
                         <Box width={650} sx={{display:'flex', flexDirection:'column', position:{ xl: 'fixed',}}}>
                             <Stack direction="row" justifyContent={"space-between"}>
                                 <Typography variant="h5" sx={{color:'#1a1a1a',}}>
@@ -255,14 +270,10 @@ const ProductPage = () => {
                                             <Radio   
                                                 disableRipple
                                                 icon={
-                                                    // <Icon >
-                                                        <img src={s3} height={40} width={40}/>
-                                                    // </Icon>
+                                                    <img src={s3} height={40} width={40}/>
                                                 }
                                                 checkedIcon={
-                                                    // <Icon>
-                                                        <img src={s2} height={40} width={40}/>
-                                                    // </Icon>
+                                                    <img src={s2} height={40} width={40}/>
                                                 }
                                             />
                                         }
@@ -331,7 +342,6 @@ const ProductPage = () => {
                                     <Grid item xs={6} >
                                         <ButtonBase 
                                             variant="outlined"
-                                            // type="submit"  
                                             disableRipple
                                             onClick={user ? (cart.size ? proceedToCheckOut : setOpen) : setOpen}
                                             sx={{
@@ -374,7 +384,7 @@ const ProductPage = () => {
                                 onChange={handleTabChange}
                                 sx={{
                                     "& .MuiTabs-indicator": {
-                                        bgcolor: 'rgb(26, 26, 26, 0.5)'
+                                        bgcolor: '#d43f3f'
                                     },
                                 }}
                             >
