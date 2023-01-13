@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, } from 'react';
 import './App.css'
 import {Container, Box, Fade, Fab, useScrollTrigger,  } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -20,24 +20,22 @@ const ScrollTop = (props) => {
 
         if (anchor) {
             anchor.scrollIntoView({
-                behavior: "smooth",
                 block: "start",
             });
         }
     };
-    
+
     return (
         <Fade in={trigger} >
             <Box 
                 onClick={handleClick} 
-                sx={{ position: 'fixed', bottom: '30px', right: '40px',}}
+                sx={{ position: 'fixed', bottom: '30px', right: '40px', zIndex: 999}}
             >
                 <Fab 
                     disableRipple
                     size='large' 
                     aria-label="scroll-back-to-top" 
                     sx={{ 
-                        // boxShadow: 0,
                         '&.MuiFab-root':{
                             bgcolor:'#d43f3f', 
                         }

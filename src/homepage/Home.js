@@ -1,6 +1,5 @@
 import React from 'react';
-import { Routes, Route, NavLink, useLocation, } from 'react-router-dom';
-import { Container, Grid,  } from '@mui/material';
+import { Grid } from '@mui/material';
 import HeaderNav from './HeaderNav';
 import MainFeaturedPost from './MainFeaturedPost';
 import FeaturedLink from './FeaturedLink';
@@ -10,21 +9,21 @@ import m4 from '../images/m4.jpg';
 import w5 from '../images/w5.jpg';
 
 
-export function Home () {
+const Home = () => {
 
     const featuredPosts = [
         {
-            description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
+            description: 'Shop Women\'s',
             image: newarr3,
             imageLabel: 'newarr2',
         },
         {
-            description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
+            description: 'Shop Men\'s',
             image: newarr3,
             imageLabel: 'newarr2',
         },
         {
-            description: 'This is a wider card with supporting text below as a natural lead-in to additional content.',
+            description: 'Sale',
             image: newarr3,
             imageLabel: 'newarr2',
         },
@@ -50,17 +49,16 @@ export function Home () {
             <main>
                 <MainFeaturedPost/>
                 <Grid container spacing={1} px={3}>
-                    {featuredPosts.map((post) => (
-                        <FeaturedPost posts={post}/>
+                    {featuredPosts.map((post, index) => (
+                        <FeaturedPost key={index} posts={post} index={index}/>
                     ))}
                 </Grid>
-                <Grid container spacing={1} px={3} lg={12}>
+                <Grid container spacing={1} px={3} >
                     {featuredLinks.map((post, index) => (
-                        <FeaturedLink posts={post} index={index}/>
+                        <FeaturedLink key={index} posts={post} index={index}/>
                     ))} 
                 </Grid>
             </main>
-            {/* <Footer/> */}
         </>
     );
 }

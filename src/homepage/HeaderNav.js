@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState} from 'react';
 import { NavLink, } from 'react-router-dom';
-import { Toolbar, Container, Grid, styled, Typography, InputBase, Slide, useScrollTrigger, Menu, MenuItem, Button
+import { Toolbar, Container, Grid, Typography, Slide, useScrollTrigger, Menu, MenuItem, 
     } from '@mui/material';
 import navBarData from '../navBarData.json';
 
@@ -8,9 +8,6 @@ import navBarData from '../navBarData.json';
 
 const HeaderNav = ({sectionName,}) => {
     const navSection = navBarData["sections"][sectionName];
-
-    // console.log("navSection:",navSection)
-
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (e, subMenu) => {
@@ -43,20 +40,20 @@ const HeaderNav = ({sectionName,}) => {
     return (
         <>
             <Slide appear={false} direction="down" in={!trigger}>
-                <Container maxWidth="false" disableGutters sx={{height: '88px', width: '100%', pt:'124px', position:'fixed', top:0, left:0, zIndex:998, boxShadow: 5,}}>
+                <Container maxWidth="false" disableGutters sx={{height: '64px', width: '100%', pt:'124px', position:'fixed', top:0, left:0, zIndex:998,}}>
                     <Toolbar component="nav"
                         variant="regular"
-                        sx={{overflowX: 'auto', bgcolor: '#1a1a1a', px:0 }}
+                        sx={{overflowX: 'auto', bgcolor: '#1a1a1a', boxShadow: 7, }}
                     >
                         <Grid container> 
                             {navSection.map((section, index) => (
                                 (Object.keys(section).includes("subMenu")) ? (
-                                    <div >
+                                    <div key={index}>
                                         <Typography variant="subtitle1" pl={3}
-                                            id={[section.subMenu] == "womenMenu" ? "women-link" : "men-link"}
-                                            // aria-controls={anchorEl ? 'basic-menu' : undefined}
+                                            id= 'navSection'
+                                            aria-controls={anchorEl ? 'basic-menu' : undefined}
                                             aria-haspopup="true"
-                                            // aria-expanded={anchorEl ? 'true' : undefined}
+                                            aria-expanded={anchorEl ? 'true' : undefined}
                                             onClick={(e) => handleClick(e, section.subMenu) }
                                             onMouseOver={(e) => handleClick(e, section.subMenu) }
                                             onMouseLeave={handleCloseHover}
@@ -99,10 +96,9 @@ const HeaderNav = ({sectionName,}) => {
                                                 },
                                             }}
                                         >
-                                            {/* {console.log("subMenu:",section.subMenu)} */}
-                                            {/* {console.log("subMenu:",navBarData["subMenu"][section.subMenu])} */}
                                             {navBarData["subMenu"][section.subMenu].map((section) => (
                                                 <MenuItem
+                                                    key={index}
                                                     component={NavLink}
                                                     to={section.url}
                                                     onClick={handleClose}
@@ -112,19 +108,19 @@ const HeaderNav = ({sectionName,}) => {
                                             ))}
                                         </Menu>
                                     </div>
-                                    ) : (
+                                ) : (
+                                    <NavLink
+                                        id="basic-link"
+                                        key={index}
+                                        to={section.url}
+                                        style={{color:'#faf7f7', textDecoration: 'none', marginRight:"20px"}}
+                                    >
                                         <Typography variant="subtitle1" pl={3} >
-                                            <NavLink
-                                                id="basic-link"
-                                                to={section.url}
-                                                style={{color:'#faf7f7', textDecoration: 'none', marginRight:"20px"}}
-                                            >
-                                                {section.title}
-                                            </NavLink>
+                                            {section.title}
                                         </Typography>
-                                    ) 
-                                )
-                            )} 
+                                    </NavLink>
+                                ) 
+                            ))} 
                         </Grid>
                     </Toolbar>
                 </Container>

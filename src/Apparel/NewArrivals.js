@@ -1,15 +1,16 @@
 import React from 'react';
 import HeaderNav from '../homepage/HeaderNav';
+import  {Apparel} from './Apparel';
 
 
-function NewArrivals() {
 
+const NewArrivals = () => {
 
     return (
-        <div>
+        <>
             <HeaderNav sectionName="homeSections"/>
-            <h2 >New Arrivals</h2>
-        </div>
+            <Apparel />
+        </>
     );
 }
 

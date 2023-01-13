@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+# 服飾購物網站
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 介紹
+簡易服裝購物網站，具備註冊、登入、加入商品購物車、結帳等功能。
+<br>
+畫面設計使用React + MUI Design的方式實作；
+<br>
+資料方面，串接後端API來實現CRUD操作，
+<br>
+並加入登入機制以控管使用者購物車權限。
 
-## Available Scripts
+## 套件安裝
 
-In the project directory, you can run:
+請安裝以下套件確保正常執行:
 
-### `npm start`
+1. react
+2. react-router-dom
+3. react-swipeable-views
+4. @emotion/react
+5. @emotion/styled
+6. @mui/material
+7. @mui/icons-material
+8. axios
+9. jwt-decode
+10. markdown-to-jsx.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 使用方法
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 複製整份online_shopping檔案到你的專案目錄
+2. 安裝所需套件(npm install)
+3. 在終端機中輸入npm start指令運行
+4. 詳見注意事項
 
-### `npm test`
+## 注意事項
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+由於後端服務亦為自建，故要執行此專案需連同後端程式碼一同執行。
 
-### `npm run build`
+## Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Demo](https://github.com/ashcicapair/online_shopping/blob/main/230113_Mui_React_shopping_website.gif)
