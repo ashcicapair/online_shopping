@@ -37,4 +37,4 @@
 
 ## Demo
 
-![Demo](https://github.com/ashcicapair/online_shopping/blob/main/230113_Mui_React_shopping_website.gif)
+![Demo](https://github.com/ashcicapair/online_shopping/blob/main/Demo.gif)
