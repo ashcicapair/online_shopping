@@ -2,13 +2,13 @@ import React, { useState, useEffect, }from 'react';
 import './App.css'
 import { Routes, Route, useLocation, useNavigate} from 'react-router-dom';
 import {Container } from '@mui/material';
-import {WomenApparelRoutes, MenApparelRoutes, } from './apparel/ApparelRoutes';
+import {WomenApparelRoutes, MenApparelRoutes, } from './Apparel/ApparelRoutes';
 import Home from './homepage/Home';
 import Header from './homepage/Header';
 import Footer from './homepage/Footer';
-import NewArrivals from './apparel/NewArrivals';
-import ProductPage from './apparel/ProductPage';
-import Sale from './apparel/Sale';
+import NewArrivals from './Apparel/NewArrivals';
+import ProductPage from './Apparel/ProductPage';
+import Sale from './Apparel/Sale';
 import SignInSignUp from './account/SignInSignUp';
 import Checkout from './ShoppingCart/Checkout';
 import NotFound from './NotFound';

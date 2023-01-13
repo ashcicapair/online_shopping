@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { useAuth } from '../account/useAuth'; 
-import  {StyledContainer} from '../apparel/Apparel';
+import  {StyledContainer} from '../Apparel/Apparel';
 import Alarm from '../Alarm';
 import ClearIcon from '@mui/icons-material/Clear';
 // import useShoppingCart from '../ShoppingCart/useShoppingCart';

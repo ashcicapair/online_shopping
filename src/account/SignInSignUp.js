@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
-import  {StyledContainer} from '../apparel/Apparel';
+import  {StyledContainer} from '../Apparel/Apparel';
 import { useAuth } from './useAuth'; 
 import Alarm from '../Alarm';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';

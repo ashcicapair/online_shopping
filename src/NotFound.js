@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, } from 'react-router-dom';
 import { Typography, Paper,} from '@mui/material';
 import HeaderNav from './homepage/HeaderNav';
-import {StyledContainer} from './apparel/Apparel';
+import {StyledContainer} from './Apparel/Apparel';
 
 
 function NotFound() {
